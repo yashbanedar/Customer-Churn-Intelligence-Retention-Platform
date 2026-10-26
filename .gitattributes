@@ -1,8 +1,16 @@
 # GitHub Linguist Overrides
-# Ignore generated Plotly interactive figures and compiled documentation from language statistics
-*.html linguist-detectable=false
-*.html linguist-vendored
-*.htm linguist-detectable=false
+# 1. Ignore the large generated Plotly explorer (4.8MB) and data files so they don't dominate stats
 artifacts/** linguist-vendored
-docs/** linguist-documentation
+artifacts/figures/*.html linguist-detectable=false
 data/** linguist-vendored
+
+# 2. Make SQL visible in the repository language stats
+sql/*.sql linguist-detectable=true
+sql/*.sql linguist-language=SQL
+
+# 3. Make Dockerfile visible in the repository language stats
+Dockerfile.* linguist-language=Dockerfile
+Dockerfile.* linguist-detectable=true
+
+# 4. Allow project documentation HTML (17 KB) to show a small, realistic slice of HTML (~4%)
+docs/PROJECT_DOCUMENTATION.html linguist-detectable=true
