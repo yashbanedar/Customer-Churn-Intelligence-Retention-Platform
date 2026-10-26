@@ -39,9 +39,9 @@ jobs:
         run: |
           python -m compileall src api app tests
 
-      - name: Download and prepare processed dataset
+      - name: Download, prepare dataset, and populate database
         run: |
-          python -m src.data.pipeline --report-only
+          python -m src.data.pipeline
 
       - name: Train model and generate serialized artifacts
         run: |

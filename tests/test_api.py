@@ -158,6 +158,21 @@ class TestBatchPredictionEndpoint:
 class TestAnalyticsSummaryEndpoint:
     """Tests /analytics/summary database integration."""
 
+    @pytest.fixture(autouse=True)
+    def ensure_database_ready(self):
+        """Ensures relational tables are populated in SQLite before testing analytics summary."""
+        from src.data.db_loader import get_db_engine, load_dataset_to_sql
+        from src.data.cleaner import clean_dataset
+        from src.data.ingest import load_raw_data
+        from sqlalchemy import inspect
+
+        engine = get_db_engine()
+        inspector = inspect(engine)
+        if "customer_contracts" not in inspector.get_table_names():
+            raw_df = load_raw_data()
+            clean_df = clean_dataset(raw_df)
+            load_dataset_to_sql(clean_df, engine=engine, recreate_tables=True)
+
     def test_analytics_summary_success(self, client):
         response = client.get("/analytics/summary")
         assert response.status_code == 200
