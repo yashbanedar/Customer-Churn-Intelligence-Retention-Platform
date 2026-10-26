@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Churn Intelligence & Retention Optimization Platform - Project Documentation</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --secondary: #0f766e;
+    --accent: #f59e0b;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --dark: #0f172a;
+    --gray-bg: #f8fafc;
+    --card-border: #e2e8f0;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-main);
+    background-color: #ffffff;
+    line-height: 1.6;
+    padding: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* Cover / Header */
+  .doc-header {
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    color: #fff;
+  }
+  .badge-primary { background: var(--primary); }
+  .badge-teal { background: var(--secondary); }
+  .badge-amber { background: var(--accent); }
+  .badge-green { background: var(--success); }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* Section Styling */
+  h2 {
+    font-size: 20px;
+    color: var(--primary);
+    border-bottom: 2px solid var(--card-border);
+    padding-bottom: 6px;
+    margin-top: 36px;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 16px;
+    color: var(--dark);
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #334155;
+  }
+
+  ul, ol {
+    margin-left: 24px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  /* Stat Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .kpi-card {
+    background: var(--gray-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .kpi-val {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  th {
+    background: #f1f5f9;
+    color: var(--dark);
+    font-weight: 700;
+    border-top: 1px solid var(--card-border);
+  }
+
+  tr:nth-child(even) {
+    background-color: #fafbfc;
+  }
+
+  /* Callout Boxes */
+  .callout {
+    border-left: 4px solid var(--primary-light);
+    background-color: #eff6ff;
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 20px 0;
+    font-size: 13.5px;
+  }
+
+  .callout-success {
+    border-left-color: var(--success);
+    background-color: #f0fdf4;
+  }
+
+  .callout-warning {
+    border-left-color: var(--accent);
+    background-color: #fffbeb;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--dark);
+  }
+
+  .math-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px 18px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    margin: 14px 0;
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  .doc-footer {
+    margin-top: 50px;
+    border-top: 1px solid var(--card-border);
+    padding-top: 18px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* Print Rules for High-End PDF Generation */
+  @media print {
+    body {
+      padding: 15mm 20mm;
+      font-size: 11pt;
+    }
+    .kpi-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    h2 {
+      page-break-after: avoid;
+    }
+    table, .kpi-card, .callout {
+      page-break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="badge-row">
+    <span class="badge badge-primary">Machine Learning</span>
+    <span class="badge badge-teal">FastAPI</span>
+    <span class="badge badge-amber">Streamlit UI</span>
+    <span class="badge badge-green">81 Tests Passing</span>
+  </div>
+  <h1>Customer Churn Intelligence & Retention Optimization Platform</h1>
+  <div class="subtitle">Complete Technical Specification, Mathematical Foundations, and Executive Business Report</div>
+</div>
+
+<!-- SECTION 1 -->
+<h2>1. Executive Summary (The Project in Plain English)</h2>
+<p>
+  In any subscription business—especially telecommunications—<strong>churn</strong> represents the loss of existing customers who cancel their contracts or migrate to competitors. Acquiring a brand-new customer requires expensive marketing campaigns, sales commissions, onboarding hardware, and account setup costs. Research consistently confirms that <strong>retaining an existing subscriber costs 5 to 7 times less than acquiring a new one</strong>.
+</p>
+
+<div class="callout">
+  <div class="callout-title">💡 The Healthcare Analogy (AI Doctor for Customer Accounts)</div>
+  Think of this platform as an AI doctor for customer accounts:
+  <ul>
+    <li><strong>The Diagnosis:</strong> Instead of subjective guessing, it inspects 20 concrete operational indicators (contract duration, monthly rate, tech support tickets, billing methods).</li>
+    <li><strong>True Risk Calibration:</strong> Rather than a generic classifier score, it generates a mathematically calibrated probability (e.g., <em>"This customer has a genuine 73.5% chance of leaving"</em>).</li>
+    <li><strong>Root Cause Explanation (SHAP):</strong> It uncovers why the customer is unhappy (e.g., <em>"Paying $85/month for Fiber Optic without Tech Support on a Month-to-Month plan"</em>).</li>
+    <li><strong>The Prescription:</strong> It evaluates whether offering a $35 retention promotion yields a positive net return, protecting company funds from wasteful spending.</li>
+  </ul>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-val">7,043</div>
+    <div class="kpi-label">Analyzed Accounts</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val">0.8445</div>
+    <div class="kpi-label">Test ROC-AUC</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val">-15.5%</div>
+    <div class="kpi-label">Brier Error Reduction</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val">+85.9%</div>
+    <div class="kpi-label">Simulated Campaign ROI</div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<h2>2. Problem Statement & Traditional Pitfalls</h2>
+<p>Traditional corporate machine learning models for customer churn fail in production due to four recurring flaws:</p>
+<ol>
+  <li><strong>The Arbitrary 0.5 Threshold:</strong> Treating any customer with a score &gt; 0.5 as "churning" ignores the asymmetric economic costs of False Positives (spending money on someone who was never leaving) vs. False Negatives (losing a high-value $1,200/year customer).</li>
+  <li><strong>Uncalibrated Classifier Scores:</strong> Raw scores output by modern gradient boosting algorithms are ranking metrics, not real probabilities. Relying on uncalibrated scores to budget cash causes massive financial forecasting errors.</li>
+  <li><strong>Target Leakage in Pipelines:</strong> Computing data imputation or categorical encoding across the full dataset prior to train/test partitioning contaminates the test set, creating models that look stellar in notebooks but collapse in production.</li>
+  <li><strong>Whitespace & Data Quality Traps:</strong> The IBM Telco dataset contains 11 customer records with 0 tenure months where <code>TotalCharges</code> is stored as a blank space (<code>" "</code>). Without schema contracts, standard parsers crash or silently assign invalid values.</li>
+</ol>
+
+<!-- SECTION 3 -->
+<h2>3. Core Project Objectives</h2>
+<ul>
+  <li><strong>Enforce Strict Data Contracts:</strong> Programmatic ingestion with SHA256 verification and Pandera schema validation.</li>
+  <li><strong>Normalized Relational Architecture:</strong> 3NF PostgreSQL / SQLite storage for rapid analytical queries.</li>
+  <li><strong>Leakage-Free Modeling:</strong> Strict scikit-learn <code>ColumnTransformer</code> and <code>Pipeline</code> encapsulation.</li>
+  <li><strong>Probability Calibration:</strong> Platt Sigmoid Scaling to ensure model scores reflect true empirical likelihoods.</li>
+  <li><strong>Cost-Sensitive Decision Boundaries:</strong> Finding the optimal operational threshold ($\tau^* = 0.540$) using cost-benefit optimization.</li>
+  <li><strong>Transparent Explainable AI (SHAP):</strong> Global beeswarm drivers and individual customer waterfall attributions.</li>
+  <li><strong>Financial Retention Simulator:</strong> 4-way data segregation tracking Observed, Predicted, Assumed, and Simulated metrics.</li>
+  <li><strong>Production Microservices:</strong> Type-safe FastAPI REST API endpoints and a 5-tab executive Streamlit web dashboard.</li>
+</ul>
+
+<!-- SECTION 4 -->
+<h2>4. Dataset Breakdown & Relational Schema</h2>
+<p>The platform is evaluated on the canonical <strong>IBM Telco Customer Churn</strong> dataset:</p>
+<ul>
+  <li><strong>Total Customer Records:</strong> 7,043</li>
+  <li><strong>Churn Baseline:</strong> 1,869 churners (26.5%) vs. 5,174 retained accounts (73.5%).</li>
+  <li><strong>Feature Categories:</strong>
+    <ul>
+      <li><em>Demographics:</em> Gender, SeniorCitizen, Partner, Dependents.</li>
+      <li><em>Account Details:</em> Tenure (months), Contract type (Month-to-month, 1-Year, 2-Year), PaperlessBilling, PaymentMethod.</li>
+      <li><em>Services:</em> PhoneService, MultipleLines, InternetService (DSL, Fiber optic, None).</li>
+      <li><em>Add-On Security & Support:</em> OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport, StreamingTV, StreamingMovies.</li>
+      <li><em>Charges:</em> MonthlyCharges, TotalCharges.</li>
+    </ul>
+  </li>
+</ul>
+
+<!-- SECTION 5 -->
+<h2>5. Leakage-Safe Machine Learning & Benchmark Results</h2>
+<p>
+  All data preprocessing (imputation, scaling, and one-hot encoding) is packaged inside a scikit-learn <code>Pipeline</code>. Models were evaluated using 5-Fold Stratified Cross-Validation on the training fold (80%), with final reporting on 1,409 unobserved held-out accounts (20% partition):
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model Architecture</th>
+      <th>PR-AUC</th>
+      <th>ROC-AUC</th>
+      <th>F1 Score</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>Brier Score</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Logistic Regression</strong></td>
+      <td>0.6325</td>
+      <td>0.8415</td>
+      <td>0.6136</td>
+      <td>0.5043</td>
+      <td>0.7834</td>
+      <td>0.1687</td>
+      <td>Baseline</td>
+    </tr>
+    <tr>
+      <td><strong>Random Forest</strong></td>
+      <td>0.6532</td>
+      <td>0.8409</td>
+      <td>0.6358</td>
+      <td>0.5325</td>
+      <td>0.7888</td>
+      <td>0.1609</td>
+      <td>Ensemble</td>
+    </tr>
+    <tr>
+      <td><strong>XGBoost Classifier</strong></td>
+      <td><strong>0.6623</strong></td>
+      <td><strong>0.8445</strong></td>
+      <td><strong>0.6372</strong></td>
+      <td><strong>0.5333</strong></td>
+      <td><strong>0.7914</strong></td>
+      <td><strong>0.1610</strong></td>
+      <td>⭐ <strong>Top Performer</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SECTION 6 -->
+<h2>6. Probability Calibration & Cost-Benefit Threshold Tuning</h2>
+
+<h3>Platt Sigmoid Probability Calibration</h3>
+<p>
+  Raw XGBoost outputs were calibrated using 5-fold cross-validated Platt scaling (<code>CalibratedClassifierCV</code>):
+</p>
+<ul>
+  <li><strong>Brier Score:</strong> Reduced from 0.1610 to <strong>0.1361 (-15.46% error reduction)</strong>.</li>
+  <li><strong>Log Loss:</strong> Dropped from 0.5283 to <strong>0.4182 (-20.84% error reduction)</strong>.</li>
+  <li><strong>Expected Calibration Error (ECE):</strong> Improved by <strong>68.3%</strong>, aligning scores directly with observed churn frequencies.</li>
+</ul>
+
+<h3>Cost-Benefit Decision Optimization</h3>
+<p>
+  Assuming an intervention offer cost of $35.00, an assumed save rate of 22%, and a customer lifetime value (CLV) of $450.00:
+</p>
+<div class="math-box">
+  Theoretical Bayes Threshold: tau* = Offer_Cost / (Save_Rate x CLV) = 35 / (0.22 x 450) = 0.3535<br>
+  Cross-Validation Optimal Threshold: tau* = 0.540
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Strategy</th>
+      <th>Decision Threshold</th>
+      <th>Targeted Accounts</th>
+      <th>Net Saved Revenue ($)</th>
+      <th>Efficiency Lift</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard Naive Baseline</td>
+      <td>0.500</td>
+      <td>555</td>
+      <td>$9,246.00</td>
+      <td>Baseline</td>
+    </tr>
+    <tr>
+      <td><strong>Cost-Optimal Boundary</strong></td>
+      <td><strong>0.540</strong></td>
+      <td><strong>509</strong></td>
+      <td><strong>$9,365.00</strong></td>
+      <td><strong>+$119.00 Lift (46 fewer wasted calls)</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SECTION 7 -->
+<h2>7. Explainable AI: Global & Local SHAP Attributions</h2>
+<p>
+  TreeSHAP explains both macroscopic company-wide patterns and individual subscriber cases:
+</p>
+<ul>
+  <li><strong>Top Churn Hazards (Global):</strong> Month-to-Month contracts, high monthly subscription rates, Fiber Optic connection without bundled technical assistance, and payment via Electronic Check.</li>
+  <li><strong>Top Protective Factors:</strong> Two-Year contracts, prolonged account tenure (&gt; 24 months), bundled Online Security, and automated bank transfers.</li>
+  <li><strong>Frontline Actionability:</strong> Customer service reps receive waterfall attributions showing the exact push factors for any specific subscriber during live retention calls.</li>
+</ul>
+
+<!-- SECTION 8 -->
+<h2>8. Financial Retention Budget Simulator</h2>
+<p>
+  To prevent counterfactual assumptions from being confused with recorded historical facts, all simulation tables enforce strict four-way column categorization:
+</p>
+<ul>
+  <li><code>[OBSERVED DATA]</code>: Historic facts (tenure, billing rate, contract type).</li>
+  <li><code>[MODEL PREDICTION]</code>: Calibrated probability and risk tier.</li>
+  <li><code>[HYPOTHETICAL ASSUMPTION]</code>: Offer discount cost, campaign budget, assumed retention success rate.</li>
+  <li><code>[SIMULATED OUTCOME]</code>: Expected gross revenue saved, net profit, campaign ROI, and target ranking.</li>
+</ul>
+
+<div class="callout callout-success">
+  <div class="callout-title">💰 Empirical Campaign Outcomes ($10,000 Budget Simulation)</div>
+  <ul>
+    <li><strong>Budget Utilization:</strong> $9,975.00 (285 high-risk customers prioritized, 99.8% budget used).</li>
+    <li><strong>Expected Accounts Saved:</strong> 41.2 accounts.</li>
+    <li><strong>Expected Gross Saved Revenue:</strong> $18,540.72.</li>
+    <li><strong>Expected Net Saved Revenue:</strong> <strong>$8,565.72</strong>.</li>
+    <li><strong>Simulated Campaign ROI:</strong> <strong>+85.9%</strong>.</li>
+  </ul>
+</div>
+
+<!-- SECTION 9 -->
+<h2>9. Production Serving & User Interfaces</h2>
+
+<h3>FastAPI Prediction Microservice (Port 8000)</h3>
+<ul>
+  <li><code>POST /predict</code>: Real-time scoring for single customer JSON payloads.</li>
+  <li><code>POST /predict/batch</code>: High-throughput batch inference (up to 500 accounts simultaneously).</li>
+  <li><code>GET /health</code>: Microservice readiness, active model metadata, and database heartbeat.</li>
+  <li><code>GET /analytics/summary</code>: Live relational database aggregate metrics.</li>
+</ul>
+
+<h3>Streamlit Executive Dashboard (Port 8501)</h3>
+<ul>
+  <li><strong>Tab 1: 📊 Executive & Dataset KPIs:</strong> High-level revenue at risk, churn distribution, and cohort decay curves.</li>
+  <li><strong>Tab 2: 🤖 Model Benchmarks & Calibration:</strong> ROC-AUC curves, reliability diagrams, and threshold sweeps.</li>
+  <li><strong>Tab 3: 🎯 Customer Risk Scoring & Sandbox:</strong> Searchable customer roster and live interactive single-account scoring.</li>
+  <li><strong>Tab 4: 🔍 Explainable AI (SHAP):</strong> Beeswarm summary plots and local waterfall attributions.</li>
+  <li><strong>Tab 5: 💰 Retention Budget Simulator:</strong> Real-time budget sliders, efficiency frontiers, and what-if scenario testing.</li>
+</ul>
+
+<!-- SECTION 10 -->
+<h2>10. Verification & Quality Assurance</h2>
+<p>
+  The system is protected by <strong>81 automated unit and integration tests</strong> executed via Pytest:
+</p>
+<ul>
+  <li>Data ingestion, Pandera schema checks, and whitespace handling.</li>
+  <li>PostgreSQL and SQLite relational database schema creation and queries.</li>
+  <li>Pipeline leakage checks (asserting transformers only fit on training folds).</li>
+  <li>Calibration Brier score calculations and threshold utility sweeps.</li>
+  <li>Retention budget math, diminishing returns ranking, and ROI formulas.</li>
+  <li>FastAPI endpoint schema validation, edge case rejections, and batch scoring.</li>
+  <li>Dashboard analytical helper calculations and Plotly component rendering.</li>
+</ul>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  Customer Churn Intelligence & Retention Optimization Platform &bull; Python 3.13 &bull; FastAPI &bull; Streamlit &bull; XGBoost &bull; Pandera
+</div>
+
+</body>
+</html>

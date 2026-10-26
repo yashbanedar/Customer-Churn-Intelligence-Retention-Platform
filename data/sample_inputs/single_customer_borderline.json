@@ -1,0 +1,22 @@
+{
+  "customer_id": "BORDERLINE-003",
+  "gender": "Male",
+  "senior_citizen": 1,
+  "partner": "No",
+  "dependents": "No",
+  "tenure": 12,
+  "phone_service": "Yes",
+  "multiple_lines": "Yes",
+  "internet_service": "Fiber optic",
+  "online_security": "No",
+  "online_backup": "Yes",
+  "device_protection": "No",
+  "tech_support": "Yes",
+  "streaming_tv": "Yes",
+  "streaming_movies": "No",
+  "contract": "Month-to-month",
+  "paperless_billing": "Yes",
+  "payment_method": "Bank transfer (automatic)",
+  "monthly_charges": 89.50,
+  "total_charges": 1074.00
+}

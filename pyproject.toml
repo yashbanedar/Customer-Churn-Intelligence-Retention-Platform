@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "customer-churn-intelligence-retention-platform"
+version = "0.1.0"
+description = "Production-Grade Customer Churn Intelligence & Retention Optimization Platform"
+authors = [{ name = "Pratik - Data Science Portfolio" }]
+readme = "README.md"
+requires-python = ">=3.13"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --import-mode=importlib"
+testpaths = ["tests"]
+pythonpath = ["."]
+filterwarnings = [
+    "ignore::matplotlib.MatplotlibDeprecationWarning",
+    "ignore::ResourceWarning",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
