@@ -1,0 +1,8 @@
+# GitHub Linguist Overrides
+# Ignore generated Plotly interactive figures and compiled documentation from language statistics
+*.html linguist-detectable=false
+*.html linguist-vendored
+*.htm linguist-detectable=false
+artifacts/** linguist-vendored
+docs/** linguist-documentation
+data/** linguist-vendored
