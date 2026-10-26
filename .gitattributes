@@ -12,5 +12,6 @@ sql/*.sql linguist-language=SQL
 Dockerfile.* linguist-language=Dockerfile
 Dockerfile.* linguist-detectable=true
 
-# 4. Allow project documentation HTML (17 KB) to show a small, realistic slice of HTML (~4%)
+# 4. Include a small, balanced representation of HTML (~4%) from project web documentation
+docs/PROJECT_DOCUMENTATION.html linguist-documentation=false
 docs/PROJECT_DOCUMENTATION.html linguist-detectable=true
